@@ -5948,10 +5948,13 @@ end
 
 do
 local VEH_TRADE_PR = {
-    {"AT_FLOW_IMPEXP_NUM", -1},
-    {"AT_FLOW_VEHICLE_BS", -1},
-    {"GANGOPS_FLOW_BITSET_MISS0", -1},
-    {"WVM_FLOW_VEHICLE_BS", -1}
+    {"LFETIME_IE_STEAL_STARTED", 32},--CEO载具仓库偷车次数
+    {"AT_FLOW_IMPEXP_NUM", 32},--CEO载具仓库偷车完成次数
+    {"AT_FLOW_VEHICLE_BS", 255},--进出口大亨（CEO仓库载具仓库）批发价
+    {"GANGOPS_FLOW_BITSET_MISS0", 255},--末日豪劫载具批发价
+    {"WVM_FLOW_VEHICLE_BS", 255}--军火走私（地堡）载具批发价
+    {"LFETIME_HANGAR_BUY_UNDETAK", 42}--机库运货次数  飞机
+    {"LFETIME_HANGAR_BUY_COMPLET", 42}--机库运货完成次数 飞机
 }
     menu.add_feature("» 解锁部分载具批发价", "action", MASTER_UNLOCKR.id, function()
     menu.notify("批发价解锁", "解锁大师", 3, 0x6400FA14)
@@ -6004,8 +6007,8 @@ end
 
 do
 local ALN_EG_MS = {
-    {"LFETIME_BIKER_BUY_COMPLET5", 599},
-    {"LFETIME_BIKER_BUY_UNDERTA5", 599}
+    {"LFETIME_BIKER_BUY_COMPLET5", 600},--运货完成次数 小于等于 运货次数
+    {"LFETIME_BIKER_BUY_UNDERTA5", 600}--运货次数 大于等于完成次数
 }
 local BUNKR_UNLCK = {
     {"SR_HIGHSCORE_1", 690},
@@ -6026,10 +6029,12 @@ local BUNKR_UNLCK_B = {
 
 local BNKR_AWARDS = menu.add_feature("» 解锁地堡奖励", "parent", MASTER_UNLOCKR.id)
     menu.add_feature("» 外星蛋运货(彩蛋)", "action", BNKR_AWARDS.id, function()
-    menu.notify("必须要在晚上9点到11点之间运货", "解锁大师", 3, 0x6414F0FF)
+    menu.notify("进入地堡开启运货任务", "解锁大师", 3, 0x6414F0FF)
+	
         for i = 1, #ALN_EG_MS do
             stat_set_int(ALN_EG_MS[i][1], true, ALN_EG_MS[i][2])
         end
+            script.set_global_i(2544210+5191+342,20)--强制外星蛋任务  必须保证运货完成600次以上可以
     end)
 
 menu.add_feature("» 解锁地堡奖杯", "action", BNKR_AWARDS.id, function()
