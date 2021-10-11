@@ -6028,7 +6028,7 @@ local BUNKR_UNLCK_B = {
 }
 
 local BNKR_AWARDS = menu.add_feature("» 解锁地堡奖励", "parent", MASTER_UNLOCKR.id)
-    menu.add_feature("» 外星蛋运货(彩蛋)", "action", BNKR_AWARDS.id, function()
+    menu.add_feature("» 外星蛋运货(彩蛋)", "toggle", BNKR_AWARDS.id, function()
     menu.notify("进入地堡开启运货任务", "解锁大师", 3, 0x6414F0FF)
 	
         for i = 1, #ALN_EG_MS do
